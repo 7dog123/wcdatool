@@ -21,7 +21,7 @@ jobs:
           sudo ./3_install_linux.sh /opt/openwatcom
       - name: Prepare ps2dev folder
         run: |
-          tar -zcvf openwatcom.tar.gz /opt/openwatcom
+          tar -zcvf openwatcom.tar.gz /opt/openwatcom /opt/bin/openwatcom
           
       - uses: actions/upload-artifact@v4
         with:
