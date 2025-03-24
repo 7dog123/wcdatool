@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  [ push, pull_request ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dosbox
+        run: sudo apt-get update; sudo apt-get install -y dosbox
+
+      - name: build watcom
+        run: |
+          cd OpenWatcom
+          ./1_download.sh
+          ./2_build.sh
+          sudo ./3_install_linux.sh /opt/openwatcom
+      - name: Prepare ps2dev folder
+        run: |
+          tar -zcvf openwatcom.tar.gz /opt/openwatcom
+          
+      - uses: actions/upload-artifact@v4
+        with:
+          name: watcom
+          path: openwatcom.tar.gz
